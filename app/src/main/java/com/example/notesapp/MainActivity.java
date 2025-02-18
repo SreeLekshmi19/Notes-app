@@ -44,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        displayNotes();
         loadNotesFromPreferences();
+        displayNotes();
     }
 
     private void displayNotes() {
