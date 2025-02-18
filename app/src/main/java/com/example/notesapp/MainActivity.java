@@ -1,6 +1,8 @@
 package com.example.notesapp;
 
-import android.annotation.SuppressLint;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,19 +12,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String PREFS_NAME = "NotesPrefs";
+    private static final String PREFS_NAME = "NotePrefs";
     private static final String KEY_NOTE_COUNT = "NoteCount";
     private LinearLayout notesContainer;
     private List<Note> noteList;
@@ -39,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 saveNote();
             }
         });
@@ -59,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
         int noteCount = sharedPreferences.getInt(KEY_NOTE_COUNT, 0);
 
         for (int i = 0; i < noteCount; i++) {
-            String title = sharedPreferences.getString("note_title"+i, "");
-            String content = sharedPreferences.getString("note_content"+i, "");
+            String title = sharedPreferences.getString("note_title_" + i, "");
+            String content = sharedPreferences.getString("note_content_" + i, "");
 
             Note note = new Note();
             note.setTitle(title);
@@ -77,20 +72,20 @@ public class MainActivity extends AppCompatActivity {
         String title = titleEditText.getText().toString();
         String content = contentEditText.getText().toString();
 
-        if(!title.isEmpty() && !content.isEmpty()) {
+        if (!title.isEmpty() && !content.isEmpty()) {
             Note note = new Note();
             note.setTitle(title);
             note.setContent(content);
 
             noteList.add(note);
-            saveNotesToPreference();
+            saveNotesToPreferences();
 
             createNoteView(note);
             clearInputFields();
         }
     }
 
-    private void clearInputFields(){
+    private void clearInputFields() {
         EditText titleEditText = findViewById(R.id.titleEditText);
         EditText contentEditText = findViewById(R.id.contentEditText);
 
@@ -99,14 +94,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createNoteView(final Note note) {
-        View noteView = getLayoutInflater().inflate(R.layout.note_items, null);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView titleTextView = noteView.findViewById(R.id.titleTextView);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) TextView contentTextView = noteView.findViewById(R.id.contentTextView);
+        View noteView = getLayoutInflater().inflate(R.layout.note_items,null);
+        TextView titleTextView = noteView.findViewById(R.id.titleTextView);
+        TextView contentTextView = noteView.findViewById(R.id.contentTextView);
 
-        titleTextView.setOnLongClickListener(new View.OnLongClickListener() {
+        titleTextView.setText(note.getTitle());
+        contentTextView.setText(note.getContent());
+
+        noteView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onLongClick(View view) {
-                showDeleteDiaLog(note);
+            public boolean onLongClick(View v) {
+                showDeleteDialog(note);
                 return true;
             }
         });
@@ -114,23 +112,24 @@ public class MainActivity extends AppCompatActivity {
         notesContainer.addView(noteView);
     }
 
-    private void showDeleteDiaLog(final Note note) {
+    private void showDeleteDialog(final Note note) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete this note");
+        builder.setTitle("Delete this note.");
         builder.setMessage("Are you sure you want to delete this note?");
         builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(DialogInterface dialog, int which) {
                 deleteNoteAndRefresh(note);
             }
         });
-        builder.setPositiveButton("Cancel", null);
+        builder.setNegativeButton("Cancel", null);
         builder.show();
     }
 
-    private void deleteNoteAndRefresh(Note note){
+    private void deleteNoteAndRefresh(Note note) {
         noteList.remove(note);
-        saveNotesToPreference();
+        saveNotesToPreferences();
         refreshNoteViews();
     }
 
@@ -139,15 +138,15 @@ public class MainActivity extends AppCompatActivity {
         displayNotes();
     }
 
-    private void saveNotesToPreference() {
+    private void saveNotesToPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         editor.putInt(KEY_NOTE_COUNT, noteList.size());
-        for (int i = 0; i < noteList.size(); i++) {
+        for (int i = 0; i < noteList.size(); i ++) {
             Note note = noteList.get(i);
-            editor.putString("note_title"+i, note.getTitle());
-            editor.putString("note_content"+i, note.getContent());
+            editor.putString("note_title_" + i, note.getTitle());
+            editor.putString("note_content_" + i, note.getContent());
         }
         editor.apply();
     }

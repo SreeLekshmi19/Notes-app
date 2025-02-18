@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,17 +11,24 @@
     <EditText
         android:id="@+id/titleEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_bg"
+        android:layout_height="46dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
         android:hint="Note Title"/>
 
     <EditText
-        android:id="@+id/contentEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Note Content"
         android:layout_marginTop="16dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/edittext_bg"
+        android:textColor="@color/black"
         android:inputType="textMultiLine"
-        android:minLines="5"/>
+        android:minLines="5"
+        android:id="@+id/contentEditText"/>
 
     <Button
         android:id="@+id/saveButton"
@@ -32,23 +38,25 @@
         android:layout_marginTop="16dp"/>
 
     <TextView
-        android:id="@+id/notesTextView"
         android:layout_width="match_parent"
         android:layout_height="18dp"
         android:text="Notes:"
+        android:layout_marginTop="16dp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"/>
+        android:id="@+id/notesTextView"/>
 
     <ScrollView
         android:id="@+id/notesScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1">
 
-    <LinearLayout
-        android:id="@+id/notesContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notesContainer"
+            android:orientation="vertical"/>
+
+    </ScrollView>
 
 </LinearLayout>
