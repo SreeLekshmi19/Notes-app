@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
+    app:cardElevation="6dp"
     android:background="@drawable/note_bg">
 
     <LinearLayout
@@ -14,36 +14,51 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Note Title -->
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
 
+        <!-- Note Content -->
         <TextView
             android:id="@+id/contentTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp"/>
 
+        <!-- Action Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:gravity="end"
+            android:layout_marginTop="10dp">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/editButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"/>
+                android:text="Edit"
+                android:icon="@drawable/ic_edit"
+                android:backgroundTint="@color/purple_500"
+                android:textColor="@color/white"
+                app:cornerRadius="8dp"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/deleteButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delete"
+                android:icon="@drawable/ic_delete"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/white"
+                app:cornerRadius="8dp"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
     </LinearLayout>
