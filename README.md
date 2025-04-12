@@ -6,6 +6,14 @@ Whether it's a quick to-do, a journal entry, or a grocery list, this app helps y
 
 ---
 
+## 📑 Table of Contents
+
+- [🚀 Features](#-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [🤝 Contributing](#-contributing)
+
+---
+
 ## 🚀 Features
 
 - ➕ Create and save new notes  
