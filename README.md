@@ -39,7 +39,7 @@ Whether it's a quick to-do, a journal entry, or a grocery list, this app helps y
 1. **Fork the repository**
 2. **Clone the repository :**
    ```bash
-   git clone https://github.com/your-username/E-Commerce-Product-Listing-App.git
+   git clone https://github.com/your-username/Notes-app.git
 3. **Make your changes**
 4. **Commit and Push your changes :**
    ```bash
